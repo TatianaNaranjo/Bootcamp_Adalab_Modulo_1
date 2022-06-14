@@ -1,4 +1,4 @@
-# Bootcamp_Adalab_Modulo 1: Python y MySQL
+Python y MySQL
 Programación desarrollada durante el Bootcamp en Adalab
 
 Aprendizajes Python
