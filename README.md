@@ -1,7 +1,7 @@
-Python y MySQL
+# Python y MySQL
 Programación desarrollada durante el Bootcamp en Adalab
 
-Aprendizajes Python
+# Aprendizajes Python
  1. Variables, booleanas, operadores numéricos y binarios
  2. Listas 
  3. Diccionarios
@@ -10,7 +10,8 @@ Aprendizajes Python
  6. Funciones y clases
  7. Ficheros
  8. Expresiones regulares
-Aprendizajes SQL
+ 
+# Aprendizajes SQL
 1. Introducción a las bases de datos / Modelo Relacional
 2. Consultas básicas 
 3. Consultas avanzadas 
