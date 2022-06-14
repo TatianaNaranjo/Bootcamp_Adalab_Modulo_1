@@ -1,29 +1,49 @@
+-- Ej1: Productos categoría beverages. Sacar Id, nombre y categoria.--
 USE Northwind;
-
-/*1 Extraer info de productos beberages*/
-SELECT product_id, product_name, category_id
+SELECT products.product_id, products.product_name, products.category_id, categories.category_name
 FROM products
-WHERE category_id IN (SELECT category_id FROM categories WHERE category_name = 'Beverages');
+LEFT JOIN categories
+ON products.category_id = categories.category_id
+WHERE categories.category_name = 'Beverages';
 
-/*2 Lista de países donde viven clientes pero ahí no hay proveedor*/
-SELECT company_name, country
+-- Ej2:Extraed la lista de países donde viven los clientes, pero no hay ningún proveedor 
+-- ubicado en ese país.--
+USE Northwind;
+SELECT country
 FROM customers
-WHERE country NOT IN (SELECT country FROM suppliers);
+WHERE country NOT IN (
+	SELECT country
+	FROM suppliers)
+GROUP BY country;
 
-/* ¿Cuántas empresas hay en cada país que no tiene proveedor?*/
-
-/*3 Clientes que compraron +20 'Grandma's Boysenberry Spread'*/
-SELECT customer_id, COUNT(order_id)
-FROM orders
-WHERE category_id IN (SELECT product_id FROM products WHERE product_id = 6);
-
-/*4 10 productos más caros*/
-SELECT product_name, product_id, unit_price
-FROM products
-ORDER BY unit_price desc
+-- Ej3: 
+USE Northwind;
+SELECT customers.customer_id AS ID_Cliente, customers.company_name AS Nombre_Cliente, orders.order_id AS ID_Pedido
+FROM customers
+LEFT JOIN orders
+ON customers.customer_id = orders.customer_id
+WHERE orders.order_id IN (
+	SELECT orderdetails.order_id
+    FROM orderdetails
+    WHERE orderdetails.order_id IN(
+		SELECT orderdetails.order_id
+        FROM orderdetails
+        WHERE orderdetails.product_id = 6 AND orderdetails.quantity >= 20  ));
+    
+# 4. 10 productos mas caros
+USE Northwind;
+SELECT product_name AS nombre_producto, unit_price AS precio
+FROM products 
+ORDER BY precio DESC
 LIMIT 10;
 
-/*5 Producto más vendido y qué cantidad ha sido*/
-SELECT orderdetails.product_id, orderdetails.quantity
-FROM orderdetails INNER JOIN products
-WHERE products.product_id IN (SELECT products.product_name FROM products);
+# 5. producto que más ha sido comprado y la cantidad que se compró
+USE Northwind;
+SELECT product_id AS id_producto, product_name AS nombre_producto, quantity AS cantidad
+FROM orderdetails 
+NATURAL JOIN products
+ORDER BY quantity DESC
+LIMIT 1;
+
+
+
